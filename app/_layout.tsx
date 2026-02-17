@@ -8,9 +8,9 @@ export default function RootLayout() {
       baseUrl="http://13.235.255.198:8000"
       apiKey="demo-api-key"
       organisationMetadata={{
-        companyName: "Acme",
-        companyMotto: "Knowledge at your fingertips",
-        madeBy: "XYZ",
+        companyName: "Jaldi The Late",
+        companyMotto: "Humii developer baani, ee humara hi appwa",
+        madeBy: "Ravi Kishan and Manoj Tiwari",
         companyLogo: require("../assets/images/react-logo.png"),
       }}
     >

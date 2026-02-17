@@ -1,50 +1,100 @@
-# Welcome to your Expo app 👋
+# Ragnify SDK Consumer (Expo)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This Expo app demonstrates how to integrate the **Ragnify AI Chatbot SDK** into a mobile experience using Expo Router.
 
-## Get started
+## Quick start
 
 1. Install dependencies
 
-   ```bash
-   npm install
-   ```
+    ```bash
+    npm install
+    ```
 
 2. Start the app
 
-   ```bash
-   npx expo start
-   ```
+    ```bash
+    npx expo start
+    ```
 
-In the output, you'll find options to open the app in a
+## How we use the Ragnify SDK
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### 1) Wrap the app with `SapientAuthProvider`
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+`app/_layout.tsx` configures the SDK with your backend and org metadata.
 
-## Get a fresh project
+```tsx
+import { Stack } from "expo-router";
+import { SapientAuthProvider } from "ragnify-ai-chatbot-sdk";
 
-When you're ready, run:
-
-```bash
-npm run reset-project
+export default function RootLayout() {
+   return (
+      <SapientAuthProvider
+         baseUrl="http://13.235.255.198:8000"
+         apiKey="demo-api-key"
+         organisationMetadata={{
+            companyName: "Acme",
+            companyMotto: "Knowledge at your fingertips",
+            madeBy: "XYZ",
+            companyLogo: require("../assets/images/react-logo.png"),
+         }}
+      >
+         <Stack screenOptions={{ headerShown: false }} />
+      </SapientAuthProvider>
+   );
+}
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**Notes**
+- Replace `baseUrl` with your API domain when you have one.
+- Keep `apiKey` in an environment variable for production builds.
+
+### 2) Use the SDK screens for auth and chat
+
+`app/login.tsx` and `app/register.tsx` use the SDK-provided auth screens and handle navigation on success/failure.
+
+```tsx
+import { router } from "expo-router";
+import { LoginScreen } from "ragnify-ai-chatbot-sdk";
+
+export default function LoginRoute() {
+   return (
+      <LoginScreen
+         onRegisterLinkPress={() => router.push("/register")}
+         onLoginSuccess={(user) => router.push("/home")}
+         onError={(message) =>
+            router.push({ pathname: "/error", params: { message } })
+         }
+      />
+   );
+}
+```
+
+`app/home.tsx` renders the chat experience, while `app/dashboard.tsx` shows the dashboard.
+
+```tsx
+import { router } from "expo-router";
+import { ChatScreen } from "ragnify-ai-chatbot-sdk";
+
+export default function HomeRoute() {
+   return (
+      <ChatScreen
+         onNavigateToDashboard={() => router.push("/dashboard")}
+         onLogout={() => router.push("/login")}
+      />
+   );
+}
+```
+
+## Routes in this app
+
+| Route | Screen | Source file |
+| --- | --- | --- |
+| `/login` | Login | `app/login.tsx` |
+| `/register` | Register | `app/register.tsx` |
+| `/home` | Chat | `app/home.tsx` |
+| `/dashboard` | Dashboard | `app/dashboard.tsx` |
 
 ## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo Router docs](https://docs.expo.dev/router/introduction/)
+- [Expo documentation](https://docs.expo.dev/)
