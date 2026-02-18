@@ -5,12 +5,12 @@ import React from "react";
 export default function RootLayout() {
   return (
     <SapientAuthProvider
-      baseUrl="http://13.235.255.198:8000"
-      apiKey="demo-api-key"
+      baseUrl="http://ragnifyapi.webhop.me"
+      apiKey="ba81ccfa50ceb0d68fb32eccd594cb24a4779334270642f9bcfbcbb92755c448"
       organisationMetadata={{
-        companyName: "Jaldi The Late",
-        companyMotto: "Humii developer baani, ee humara hi appwa",
-        madeBy: "Ravi Kishan and Manoj Tiwari",
+        companyName: "Bilano",
+        companyMotto: "Knowledge is power",
+        madeBy: "Sagar Panwar",
         companyLogo: require("../assets/images/react-logo.png"),
       }}
     >
