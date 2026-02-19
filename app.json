@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ragnify",
+    "name": "Ragnify",
     "slug": "ragnify",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -23,7 +23,8 @@
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "name": "Ragnify",
+      "favicon": "./assets/images/ragnifyicon.png"
     },
     "plugins": [
       "expo-router",
