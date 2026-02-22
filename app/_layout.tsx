@@ -5,7 +5,7 @@ import React from "react";
 export default function RootLayout() {
   return (
     <SapientAuthProvider
-      baseUrl="https://ragnifyapi.sgrpnwr.com"
+      baseUrl="https://ragnifyms.sgrpnwr.com"
       apiKey="ea49539143faa8839e5a5ad21b30cb6086f209962a4c073345a7da67348a8839"
       organisationMetadata={{
         companyName: "Ragnify",
